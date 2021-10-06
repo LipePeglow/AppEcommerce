@@ -21,7 +21,7 @@
     <string name="sair">Sair</string>
     <string name="carrinho">Carrinho</string>
     <string name="compras">Minhas Compras</string>
-    <string name="categorias">Categorias</string>
+    <string name="category">Categorias</string>
     <string name="toggle_open">open</string>
     <string name="toggle_close">close</string>
     <string name="product_detail_cor">Cor</string>
@@ -49,6 +49,9 @@
     <string name="rua_avenida">Rua/Avenida</string>
     <string name="endere_o">Endereço</string>
     <string name="sobrenome">Sobrenome</string>
+    <string name="Perfil">Meu Perfil</string>
+    <string name="categorias">Categorias</string>
+    <string name="camisetas">Camisetas</string>
 
 
     <string-array name="states">

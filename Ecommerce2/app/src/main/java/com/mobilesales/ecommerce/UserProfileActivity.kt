@@ -23,7 +23,7 @@ class UserProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         textTitle = findViewById(R.id.toolbar_title)
-        textTitle.text = "Meu Perfil"
+        textTitle.text = getString(R.string.Perfil)
     }
 
     override fun onSupportNavigateUp(): Boolean {

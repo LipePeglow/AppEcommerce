@@ -25,7 +25,7 @@ class ProductCategoryAdapter(val list: List<ProductCategory>, val context: Conte
 
     override fun getItemCount(): Int = list.size
 
-    class ViewHolder(var itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
          val icon: ImageView = itemView.findViewById(R.id.img_category_icon)
          val title: TextView = itemView.findViewById(R.id.text_category_icon)

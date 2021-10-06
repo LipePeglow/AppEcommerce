@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcommerceApp">
         <activity
+            android:name=".ProductCategoryActivity"
+            android:exported="true" />
+        <activity
             android:name=".UserProfileActivity"
             android:exported="true" />
         <activity

@@ -14,8 +14,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
+import com.mobilesales.ecommerce.adapter.ProductAdapter
 import com.mobilesales.ecommerce.adapter.ProductCategoryAdapter
+import com.mobilesales.ecommerce.model.Product
 import com.mobilesales.ecommerce.model.ProductCategory
+import com.mobilesales.ecommerce.model.ProductColor
+import com.mobilesales.ecommerce.model.ProductSize
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -25,6 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var textTitle: TextView
     lateinit var textLogin: TextView
     lateinit var recyclerCaterogy: RecyclerView
+    lateinit var recyclerProduct: RecyclerView
 
 
 
@@ -52,12 +57,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navgationView = findViewById(R.id.nav_view)
         navgationView.setNavigationItemSelectedListener(this)
 
-        val productItem: LinearLayout = findViewById(R.id.ll_product_item)
-        productItem.setOnClickListener{
-            val intent: Intent = Intent(this, ProductDetailActivity::class.java)
-            startActivity(intent)
-        }
-
         textLogin = navgationView.getHeaderView(0).findViewById(R.id.header_profile_name)
         textLogin.setOnClickListener {
 
@@ -67,14 +66,58 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         recyclerCaterogy = findViewById(R.id.recyclerview_product_category_main)
 
-        val arrayCategory = arrayListOf<ProductCategory>(ProductCategory("1", "Camisetas"), ProductCategory("2", "Calças"),
-            ProductCategory("3", "Meias"), ProductCategory("4", "Tênis"), ProductCategory("5", "Casacos"))
+        val arrayCategory = arrayListOf<ProductCategory>(
+            ProductCategory("1", "Camisetas"),
+            ProductCategory("2", "Calças"),
+            ProductCategory("3", "Meias"),
+            ProductCategory("4", "Tênis"),
+            ProductCategory("5", "Casacos"))
 
         val adapterCategory = ProductCategoryAdapter(arrayCategory, this)
 
         recyclerCaterogy.adapter = adapterCategory
         recyclerCaterogy.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        recyclerProduct = findViewById(R.id.recyclerview_product)
+
+
+        val adapterProduct = ProductAdapter(fillRvProduct(), this)
+        recyclerProduct.adapter = adapterProduct
+        recyclerProduct.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
+
+    fun fillRvProduct() : List<Product>{
+
+        val product1: Product = Product(
+            "1","Camiseta 89",
+            ProductCategory("id", "Camisetas"),
+            "Camisseta Leve.",
+            19.90,
+            arrayListOf(
+                ProductColor("1","Branco","#ffffff"),
+                ProductColor("2","Preta","#000000")),
+            arrayListOf(
+                ProductSize("1", "P",),
+                ProductSize("1", "M")),
+            emptyList())
+
+
+        val product2: Product = Product(
+            "1","Calça Jeans",
+            ProductCategory("id", "Calças"),
+            "Calça com proteção para chuva.",
+            39.90,
+            arrayListOf(
+                ProductColor("1","Branco","#ffffff"),
+                ProductColor("2","Preta","#000000")),
+            arrayListOf(
+                ProductSize("1", "G",),
+                ProductSize("1", "GG")),
+            emptyList())
+
+        return arrayListOf(product1, product2)
+    }
+
 
     override fun onBackPressed() {
 
@@ -96,7 +139,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
             }
 
-            R.id.nav_category -> Toast.makeText(this, "Categoria", Toast.LENGTH_LONG).show()
+            R.id.nav_category ->{
+                val intent = Intent (this, ProductCategoryActivity::class.java)
+                startActivity(intent)
+            }
             R.id.nav_orders -> Toast.makeText(this, "Compras", Toast.LENGTH_LONG).show()
             R.id.nav_cart -> Toast.makeText(this, "Carrinho", Toast.LENGTH_LONG).show()
             R.id.nav_logout -> Toast.makeText(this, "Sair", Toast.LENGTH_LONG).show()
