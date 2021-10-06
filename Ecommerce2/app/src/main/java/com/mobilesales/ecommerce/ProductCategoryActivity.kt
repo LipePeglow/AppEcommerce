@@ -13,7 +13,7 @@ import com.mobilesales.ecommerce.model.ProductCategory
 
 class ProductCategoryActivity : AppCompatActivity() {
 
-    lateinit var recyclerCaterogy: RecyclerView
+
     lateinit var toolbar: Toolbar
     lateinit var textTitle: TextView
 
@@ -29,23 +29,6 @@ class ProductCategoryActivity : AppCompatActivity() {
 
         textTitle = findViewById(R.id.toolbar_title)
         textTitle.text = getString(R.string.categorias)
-
-
-        recyclerCaterogy = findViewById(R.id.recyclerview_product_category)
-
-        val arrayCategory = arrayListOf<ProductCategory>(
-            ProductCategory("1", "Camisetas"),
-            ProductCategory("2", "Calças"),
-            ProductCategory("3", "Meias"),
-            ProductCategory("4", "Tênis"),
-            ProductCategory("5", "Casacos")
-        )
-
-        val adapterCategory = ProductCategoryAdapter(arrayCategory, this)
-
-        recyclerCaterogy.adapter = adapterCategory
-        recyclerCaterogy.layoutManager = GridLayoutManager(this, 2)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
