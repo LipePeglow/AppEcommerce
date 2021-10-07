@@ -146,6 +146,10 @@ ProductCategoryFragment.Callback{
                 val intent = Intent (this, ProductCategoryActivity::class.java)
                 startActivity(intent)
             }
+            R.id.nav_settings ->{
+                val intent = Intent (this, SettingsActivity::class.java)
+                startActivity(intent)
+            }
             R.id.nav_orders -> Toast.makeText(this, "Compras", Toast.LENGTH_LONG).show()
             R.id.nav_cart -> Toast.makeText(this, "Carrinho", Toast.LENGTH_LONG).show()
             R.id.nav_logout -> Toast.makeText(this, "Sair", Toast.LENGTH_LONG).show()

@@ -40,7 +40,7 @@ class ProductDetailActivity : AppCompatActivity() {
         textTitle.text = product.title
 
         productPrice = findViewById(R.id.tv_price_product)
-        productPrice.text = "R$ ${product.prices}"
+        productPrice.text = "R$ ${product.price}"
 
         productDesc = findViewById(R.id.tv_product_desc)
         productDesc.text = product.description
