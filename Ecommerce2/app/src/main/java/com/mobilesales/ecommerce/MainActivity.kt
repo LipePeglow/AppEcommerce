@@ -1,5 +1,6 @@
 package com.mobilesales.ecommerce
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -146,8 +147,8 @@ ProductCategoryFragment.Callback{
                 val intent = Intent (this, ProductCategoryActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_settings ->{
-                val intent = Intent (this, SettingsActivity::class.java)
+            R.id.nav_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_orders -> Toast.makeText(this, "Compras", Toast.LENGTH_LONG).show()

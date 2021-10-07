@@ -22,7 +22,7 @@ class SettingsActivity : AppCompatActivity(){
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         textTitle = findViewById(R.id.toolbar_title)
-        textTitle.text = getString(R.string.settings_title)
+        textTitle.text = getString(R.string.nav_settings_title)
 
     }
 

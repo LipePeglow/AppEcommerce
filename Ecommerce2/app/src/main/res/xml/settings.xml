@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen
+<PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferencyCategory
+    <PreferenceCategory
         app:key="notifications_category"
         app:title="Notificações">
 
         <SwitchPreference
             app:key="notifications"
             app:summary="Receba notificações sobre seus pedidos, produtos e promoções."
-            app:title="Habilitar menssagens e notificações"/>
-    </PreferencyCategory>
+            app:title="Habilitar mensagens e notificações"/>
 
-    <PreferencyCategory
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:key="help_category"
         app:title="Ajuda">
 
-        <preference
+        <Preference
             app:key="feedback"
-            app:summary="Avise de problemas técnicos ou envie sugestões de melhoria"
-            app:title="Entrar em contato">
+            app:summary="Avise de problemas técnicos ou envie sugestões de melhorias."
+            app:title="Entrar em Contato">
 
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://msecommerce.com.br/contato"/>
-        </preference>
+                android:data="https://github.com/LipePeglow"/>
 
-    </PreferencyCategory>
+        </Preference>
 
-</androidx.preference.PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>

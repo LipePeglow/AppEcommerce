@@ -87,6 +87,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="product_title">Produtos</string>
     <string name="settings_title">Configurações</string>
-    <string name="Configurações">nav_settings_tittle</string>
+    <string name="nav_settings_tittle">Configurações</string>
+    <string name="nav_settings_title">Configurações</string>
+    <string name="Configurações">Configurações</string>
 
 </resources>
