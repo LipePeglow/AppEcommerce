@@ -9,7 +9,7 @@ data class Product (
     val title: String,
     val category: ProductCategory,
     val description: String,
-    val prices: Double,
+    val price: Double,
     val colors: List<ProductColor>,
     val sizes: List<ProductSize>,
     val images: List<ProductImage>)  : Serializable
