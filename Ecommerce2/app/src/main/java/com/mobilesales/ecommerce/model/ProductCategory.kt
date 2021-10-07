@@ -5,5 +5,6 @@ import java.io.Serializable
 data class ProductCategory (
 
     val id : String,
-    val title: String) : Serializable
+    val title: String,
+    val product : List<Product> = (emptyList())) : Serializable
 

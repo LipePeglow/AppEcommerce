@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mobilesales.ecommerce.MainActivity
+import com.mobilesales.ecommerce.ProductCategoryActivity
 import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.adapter.ProductCategoryAdapter
 import com.mobilesales.ecommerce.model.ProductCategory
@@ -26,11 +28,11 @@ class ProductCategoryFragment : Fragment() {
         recyclerCaterogy = view.findViewById(R.id.recyclerview_product_category)
 
         val arrayCategory = arrayListOf<ProductCategory>(
-        ProductCategory("1", "Camisetas"),
-        ProductCategory("2", "Calças"),
-        ProductCategory("3", "Meias"),
-        ProductCategory("4", "Tênis"),
-        ProductCategory("5", "Casacos")
+        ProductCategory("1", "Camisetas", MainActivity().fillRvProduct()),
+        ProductCategory("2", "Calças", MainActivity().fillRvProduct()),
+        ProductCategory("3", "Meias", MainActivity().fillRvProduct()),
+        ProductCategory("4", "Tênis", MainActivity().fillRvProduct()),
+        ProductCategory("5", "Casacos", MainActivity().fillRvProduct())
     )
 
         val adapterCategory = ProductCategoryAdapter(arrayCategory, requireContext())
@@ -39,6 +41,10 @@ class ProductCategoryFragment : Fragment() {
     recyclerCaterogy.layoutManager = GridLayoutManager(requireContext(), 2)
 
             return view
+    }
+
+    interface  Callback{
+        fun itemSelector(category: ProductCategory)
     }
 }
 

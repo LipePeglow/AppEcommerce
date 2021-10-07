@@ -18,6 +18,7 @@ class ProductActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
     lateinit var textTitle: TextView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
@@ -31,13 +32,15 @@ class ProductActivity : AppCompatActivity() {
         textTitle = findViewById(R.id.toolbar_title)
         textTitle.text = getString(R.string.product_title)
 
-       val fragment = ProductFragment()
+        val category = intent.getSerializableExtra("CATEGORY") as ProductCategory
 
+        val args = Bundle()
+        args.putSerializable("CATEGORY", category)
+        val fragment = ProductFragment()
+        fragment.arguments = args
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_product, fragment)
             .commit()
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

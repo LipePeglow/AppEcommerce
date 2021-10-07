@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.adapter.ProductAdapter
 import com.mobilesales.ecommerce.model.Product
+import com.mobilesales.ecommerce.model.ProductCategory
 
 class ProductFragment : Fragment() {
 
@@ -19,6 +20,10 @@ class ProductFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (arguments != null){
+
+            arrayProduct = (arguments?.getSerializable("CATEGORY") as ProductCategory).product
+        }
 
     }
 

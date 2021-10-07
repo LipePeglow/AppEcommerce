@@ -16,12 +16,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.mobilesales.ecommerce.adapter.ProductAdapter
 import com.mobilesales.ecommerce.adapter.ProductCategoryAdapter
+import com.mobilesales.ecommerce.fragment.ProductCategoryFragment
 import com.mobilesales.ecommerce.model.Product
 import com.mobilesales.ecommerce.model.ProductCategory
 import com.mobilesales.ecommerce.model.ProductColor
 import com.mobilesales.ecommerce.model.ProductSize
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(),
+    NavigationView.OnNavigationItemSelectedListener,
+ProductCategoryFragment.Callback{
 
     lateinit var toolbar:Toolbar
     lateinit var drawerLayout: DrawerLayout
@@ -67,8 +70,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerCaterogy = findViewById(R.id.recyclerview_product_category_main)
 
         val arrayCategory = arrayListOf<ProductCategory>(
-            ProductCategory("1", "Camisetas"),
-            ProductCategory("2", "Calças"),
+            ProductCategory("1", "Camisetas",fillRvProduct()),
+            ProductCategory("2", "Calças",fillRvProduct()),
             ProductCategory("3", "Meias"),
             ProductCategory("4", "Tênis"),
             ProductCategory("5", "Casacos"))
@@ -150,5 +153,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
 
         return true
+    }
+
+    override fun itemSelector(category: ProductCategory) {
+
+        val intent = Intent(this, ProductActivity::class.java)
+        intent.putExtra("CATEGORY", category)
+        startActivity(intent)
     }
 }
