@@ -1,4 +1,4 @@
-package com.mobilesales.ecommerce
+package com.mobilesales.ecommerce.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.adapter.ProductCategoryAdapter
 import com.mobilesales.ecommerce.model.ProductCategory
 
