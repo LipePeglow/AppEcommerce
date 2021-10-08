@@ -46,7 +46,8 @@
             android:exported="true"
             android:label="Home" />
         <activity
-            android:name=".SettingsActivity" />
+            android:name=".SettingsActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
