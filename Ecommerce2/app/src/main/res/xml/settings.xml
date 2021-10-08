@@ -21,7 +21,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
     <Preference
         app:key="feedback"
         app:summary="Avise de problemas técnicos ou envie sugestões de melhoria"
-        app:title="Entrar em contato">
+        app:title="Entrar em Contato">
 
         <intent
             android:action="android.intent.action.VIEW"

@@ -2,9 +2,12 @@ package com.mobilesales.ecommerce
 
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -12,6 +15,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
@@ -34,6 +38,7 @@ ProductCategoryFragment.Callback{
     lateinit var textLogin: TextView
     lateinit var recyclerCaterogy: RecyclerView
     lateinit var recyclerProduct: RecyclerView
+    lateinit var imageProfile : ImageView
 
 
 
@@ -67,6 +72,8 @@ ProductCategoryFragment.Callback{
            val intent = Intent (this, UserLoginActivity::class.java)
             startActivity(intent)
         }
+
+        imageProfile = navgationView.getHeaderView(0).findViewById(R.id.header_profile_image)
 
         recyclerCaterogy = findViewById(R.id.recyclerview_product_category_main)
 
@@ -165,5 +172,17 @@ ProductCategoryFragment.Callback{
         val intent = Intent(this, ProductActivity::class.java)
         intent.putExtra("CATEGORY", category)
         startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val profileImage = PreferenceManager.getDefaultSharedPreferences(this).getString(MediaStore.EXTRA_OUTPUT, null)
+
+        if (profileImage != null){
+            imageProfile.setImageURI(Uri.parse(profileImage))
+        }else{
+            imageProfile.setImageResource(R.drawable.profile_image)
+        }
     }
 }
