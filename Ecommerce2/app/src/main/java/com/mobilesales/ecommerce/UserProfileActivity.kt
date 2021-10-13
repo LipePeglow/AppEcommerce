@@ -105,6 +105,7 @@ class UserProfileActivity : AppCompatActivity() {
             edit().putString(MediaStore.EXTRA_OUTPUT, photoURI.toString()).apply()
         }
 
-        imageProfile.setImageURI(photoURI)
+       // imageProfile.setImageURI(photoURI)
     }
+
 }
