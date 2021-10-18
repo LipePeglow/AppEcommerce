@@ -17,6 +17,7 @@ import androidx.core.content.FileProvider
 import androidx.preference.PreferenceManager
 import java.io.File
 import java.io.IOException
+import java.net.URI
 import java.nio.file.Files
 import java.util.*
 
@@ -25,8 +26,8 @@ class UserProfileActivity : AppCompatActivity() {
 
     lateinit var toolbar: Toolbar
     lateinit var textTitle: TextView
-    lateinit var imageProfile : ImageView
-    lateinit var photoURI : Uri
+    lateinit var imageProfile: ImageView
+    lateinit var photoURI: Uri
 
     val REQUEST_TAKE_PHOTO = 1
 
@@ -44,14 +45,16 @@ class UserProfileActivity : AppCompatActivity() {
         textTitle.text = getString(R.string.Perfil)
 
         imageProfile = findViewById(R.id.iv_profile_image)
-        imageProfile.setOnClickListener{takePicture() }
+        imageProfile.setOnClickListener { takePicture() }
 
-        val profileImage = PreferenceManager.getDefaultSharedPreferences(this).getString(MediaStore.EXTRA_OUTPUT, null)
 
-        if (profileImage != null){
+        val profileImage = PreferenceManager.getDefaultSharedPreferences(this)
+            .getString(MediaStore.EXTRA_OUTPUT, null)
+
+        if (profileImage != null) {
             photoURI = Uri.parse(profileImage)
             imageProfile.setImageURI(photoURI)
-        }else{
+        } else {
             imageProfile.setImageResource(R.drawable.profile_image)
         }
     }
@@ -62,9 +65,10 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     @Throws(IOException::class)
-    private fun createImageFile(): File{
+    private fun createImageFile(): File {
 
-        val timesTamp:String = java.text.SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val timesTamp: String =
+            java.text.SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
         return File.createTempFile(
@@ -74,7 +78,7 @@ class UserProfileActivity : AppCompatActivity() {
         )
     }
 
-    private fun takePicture(){
+    private fun takePicture() {
 
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
             intent.resolveActivity(packageManager)?.also {
@@ -83,13 +87,14 @@ class UserProfileActivity : AppCompatActivity() {
 
                     createImageFile()
 
-                }catch (ex: IOException){
+                } catch (ex: IOException) {
                     null
                 }
 
                 photoFile?.also {
                     photoURI = FileProvider.getUriForFile(
-                        this, "com.mobilesales.ecommerce.fileprovider", it)
+                        this, "com.mobilesales.ecommerce.fileprovider", it
+                    )
 
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(intent, REQUEST_TAKE_PHOTO)
@@ -105,7 +110,7 @@ class UserProfileActivity : AppCompatActivity() {
             edit().putString(MediaStore.EXTRA_OUTPUT, photoURI.toString()).apply()
         }
 
-       // imageProfile.setImageURI(photoURI)
+        imageProfile.setImageURI(photoURI)
     }
 
 }

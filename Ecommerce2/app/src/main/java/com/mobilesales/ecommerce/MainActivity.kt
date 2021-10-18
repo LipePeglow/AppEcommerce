@@ -159,7 +159,11 @@ ProductCategoryFragment.Callback{
                 startActivity(intent)
             }
             R.id.nav_orders -> Toast.makeText(this, "Compras", Toast.LENGTH_LONG).show()
-            R.id.nav_cart -> Toast.makeText(this, "Carrinho", Toast.LENGTH_LONG).show()
+
+            R.id.nav_cart ->{
+                val intent = Intent(this, CartActivity::class.java)
+                startActivity(intent)
+            }
             R.id.nav_logout -> Toast.makeText(this, "Sair", Toast.LENGTH_LONG).show()
         }
         drawerLayout.closeDrawer(GravityCompat.START)

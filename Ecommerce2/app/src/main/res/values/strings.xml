@@ -90,5 +90,6 @@
     <string name="nav_settings_tittle">Configurações</string>
     <string name="nav_settings_title">Configurações</string>
     <string name="Configurações">Configurações</string>
+    <string name="cart_title">Meu Carrinho</string>
 
 </resources>

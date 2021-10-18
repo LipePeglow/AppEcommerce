@@ -30,6 +30,7 @@
         <activity
             android:name=".ProductActivity"
             android:exported="true" />
+
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -48,6 +49,7 @@
         <activity
             android:name=".SettingsActivity"
             android:exported="true"/>
+        <activity android:name=".CartActivity" />
 
         <provider
             android:authorities="${applicationId}.fileprovider"
