@@ -4,6 +4,6 @@ import java.io.Serializable
 
 data class OrderedProduct (
 
-    val id: String,
-    val product: Product,
-    val quantity: Int) : Serializable
+    var id: String,
+    var product: Product,
+    var quantity: Int) : Serializable

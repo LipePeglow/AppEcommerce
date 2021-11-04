@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobilesales.ecommerce.R
+import com.mobilesales.ecommerce.adapter.CartAdapter
 import com.mobilesales.ecommerce.adapter.ProductAdapter
-import com.mobilesales.ecommerce.model.Order
-import com.mobilesales.ecommerce.model.Product
-import com.mobilesales.ecommerce.model.ProductCategory
+import com.mobilesales.ecommerce.model.*
 
 class CartFragment : Fragment (){
 
@@ -31,10 +30,57 @@ class CartFragment : Fragment (){
 
         recyclerCart = view.findViewById(R.id.rv_cart)
 
-        val adapterProduct = ProductAdapter(emptyList(),  requireContext())
+        val product1: Product = Product(
+            "1","Camiseta 89",
+            ProductCategory("id", "Camisetas"),
+            "Camisseta Leve.",
+            19.90,
+            arrayListOf(
+                ProductColor("1","Branco","#ffffff"),
+                ProductColor("2","Preta","#000000")
+            ),
+            arrayListOf(
+                ProductSize("1", "P",),
+                ProductSize("1", "M")
+            ),
+            emptyList())
 
-        recyclerCart.adapter = adapterProduct
 
+        val product2: Product = Product(
+            "1","Calça Jeans",
+            ProductCategory("id", "Calças"),
+            "Calça com proteção para chuva.",
+            39.90,
+            arrayListOf(
+                ProductColor("1","Branco","#ffffff"),
+                ProductColor("2","Preta","#000000")
+            ),
+            arrayListOf(
+                ProductSize("1", "G",),
+                ProductSize("1", "GG")
+            ),
+            emptyList())
+
+        val adapterCart = CartAdapter(arrayListOf(
+            OrderedProduct("1", product1,3 ),
+            OrderedProduct("1", product1,3 ),
+            OrderedProduct("1", product1,3 ),
+            OrderedProduct("1", product1,3 ),
+            OrderedProduct("1", product1,3 ),
+            OrderedProduct("2", product2, 5),
+            OrderedProduct("1", product1,1 ),
+            OrderedProduct("2", product2, 5),
+            OrderedProduct("2", product2, 5),
+            OrderedProduct("2", product2, 5),
+            OrderedProduct("2", product2, 5),
+            OrderedProduct("1", product1,1 ),
+            OrderedProduct("1", product1,1 ),
+            OrderedProduct("1", product1,1 ),
+            OrderedProduct("1", product1,1 ),
+            OrderedProduct("2", product2, 1)),
+            requireContext())
+
+        recyclerCart.adapter = adapterCart
         recyclerCart.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         return view
