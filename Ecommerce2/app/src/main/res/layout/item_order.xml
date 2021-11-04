@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardview_product_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@color/white"
+    app:cardElevation="2dp"
+    app:shapeAppearance="@style/TextAppearance.AppCompat.Medium">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_label_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Número:"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="52929814984194198"
+            android:layout_toRightOf="@+id/tv_label_id"
+            android:layout_alignBaseline="@id/tv_label_id"
+            android:layout_marginLeft="8dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_label_metodo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pagamento:"
+            android:layout_below="@id/tv_label_id"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_metodo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cartao credito ou boleto"
+            android:layout_toRightOf="@+id/tv_label_metodo"
+            android:layout_alignBaseline="@id/tv_label_metodo"
+            android:layout_marginLeft="8dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_label_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status:"
+            android:layout_below="@id/tv_label_metodo"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pago"
+            android:layout_toRightOf="@+id/tv_label_status"
+            android:layout_alignBaseline="@id/tv_label_status"
+            android:layout_marginLeft="8dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_label_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data/Hora:"
+            android:layout_below="@id/tv_label_status"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_label_time"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/tv_label_time"
+            android:text="12/10/2021  16:45:26"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_label_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total:"
+            android:layout_below="@id/tv_label_time"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_label_total"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/tv_label_total"
+            android:text="R$195.90"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_menu_cart" />
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

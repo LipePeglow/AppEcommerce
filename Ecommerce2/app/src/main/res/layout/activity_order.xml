@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductActivity"
+    tools:context=".model.OrderActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -17,9 +17,10 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_product"
+        android:id="@+id/fragment_order"
+        android:name="com.mobilesales.ecommerce.fragment.OrderFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_product"/>
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_order"/>
 
 </LinearLayout>

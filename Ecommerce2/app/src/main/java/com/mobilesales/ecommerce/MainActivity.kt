@@ -22,10 +22,7 @@ import com.google.android.material.navigation.NavigationView
 import com.mobilesales.ecommerce.adapter.ProductAdapter
 import com.mobilesales.ecommerce.adapter.ProductCategoryAdapter
 import com.mobilesales.ecommerce.fragment.ProductCategoryFragment
-import com.mobilesales.ecommerce.model.Product
-import com.mobilesales.ecommerce.model.ProductCategory
-import com.mobilesales.ecommerce.model.ProductColor
-import com.mobilesales.ecommerce.model.ProductSize
+import com.mobilesales.ecommerce.model.*
 
 class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener,
@@ -158,7 +155,10 @@ ProductCategoryFragment.Callback{
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_orders -> Toast.makeText(this, "Compras", Toast.LENGTH_LONG).show()
+            R.id.nav_orders -> {
+                val intent = Intent(this, OrderActivity::class.java)
+                startActivity(intent)
+            }
 
             R.id.nav_cart ->{
                 val intent = Intent(this, CartActivity::class.java)
