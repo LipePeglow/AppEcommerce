@@ -15,4 +15,4 @@ data class Product (
     var description: String,
     var price: Double,
     val thumbnail: String,
-    val featured: Boolean): Serializable
+    val featured: Boolean = false): Serializable
