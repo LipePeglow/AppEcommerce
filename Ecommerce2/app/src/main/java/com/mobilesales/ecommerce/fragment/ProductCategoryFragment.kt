@@ -12,6 +12,7 @@ import com.mobilesales.ecommerce.ProductCategoryActivity
 import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.adapter.ProductCategoryAdapter
 import com.mobilesales.ecommerce.model.ProductCategory
+import com.mobilesales.ecommerce.repository.ProductRepository
 
 
 class ProductCategoryFragment : Fragment() {
@@ -26,7 +27,9 @@ class ProductCategoryFragment : Fragment() {
 
         recyclerCaterogy = view.findViewById(R.id.recyclerview_product_category)
 
-        val adapterCategory = ProductCategoryAdapter(emptyList(), requireContext())
+        val productRepository = ProductRepository(requireActivity().application)
+
+        val adapterCategory = ProductCategoryAdapter(productRepository.allCategory, requireContext())
 
     recyclerCaterogy.adapter = adapterCategory
     recyclerCaterogy.layoutManager = GridLayoutManager(requireContext(), 2)

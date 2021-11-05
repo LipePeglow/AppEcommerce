@@ -9,7 +9,7 @@ import java.util.*
 data class UserAddress(
 
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
-    var userID: String,
+    var userId: String,
     var adressLine1: String,
     var adressLine2: String,
     var number: String,

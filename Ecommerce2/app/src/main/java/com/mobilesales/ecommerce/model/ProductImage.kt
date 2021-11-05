@@ -9,4 +9,5 @@ import java.util.*
 data  class ProductImage (
 
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
+    var productId : String,
     var path: String ) : Serializable

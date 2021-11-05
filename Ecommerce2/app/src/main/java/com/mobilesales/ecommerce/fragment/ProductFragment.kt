@@ -11,19 +11,20 @@ import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.adapter.ProductAdapter
 import com.mobilesales.ecommerce.model.Product
 import com.mobilesales.ecommerce.model.ProductCategory
+import com.mobilesales.ecommerce.repository.ProductRepository
 
 class ProductFragment : Fragment() {
 
     lateinit var recyclerProduct : RecyclerView
-    lateinit var arrayProduct : List<Product>
+    lateinit var category : ProductCategory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//       if (arguments != null){
-//
-//            arrayProduct = (arguments?.getSerializable("CATEGORY") as ProductCategory).products
-//        }
+       if (arguments != null){
+
+            category = (arguments?.getSerializable("CATEGORY") as ProductCategory)
+        }
 
     }
 
@@ -37,7 +38,9 @@ class ProductFragment : Fragment() {
 
         recyclerProduct = view.findViewById(R.id.rv_product)
 
-        val adapterProduct = ProductAdapter(arrayProduct, requireContext())
+        val productRepository = ProductRepository(requireActivity().application)
+
+        val adapterProduct = ProductAdapter(productRepository.loadProductByCategory(category.id), requireContext())
 
         recyclerProduct.adapter = adapterProduct
 

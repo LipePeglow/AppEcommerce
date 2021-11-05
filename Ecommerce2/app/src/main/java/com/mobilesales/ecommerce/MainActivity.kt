@@ -22,6 +22,7 @@ import com.mobilesales.ecommerce.adapter.ProductAdapter
 import com.mobilesales.ecommerce.adapter.ProductCategoryAdapter
 import com.mobilesales.ecommerce.fragment.ProductCategoryFragment
 import com.mobilesales.ecommerce.model.*
+import com.mobilesales.ecommerce.repository.ProductRepository
 
 class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener,
@@ -35,12 +36,15 @@ ProductCategoryFragment.Callback{
     lateinit var recyclerCaterogy: RecyclerView
     lateinit var recyclerProduct: RecyclerView
     lateinit var imageProfile : ImageView
+    lateinit var productRepository : ProductRepository
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        productRepository = ProductRepository(application)
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -73,7 +77,7 @@ ProductCategoryFragment.Callback{
 
         recyclerCaterogy = findViewById(R.id.recyclerview_product_category_main)
 
-        val adapterCategory = ProductCategoryAdapter(emptyList(), this)
+        val adapterCategory = ProductCategoryAdapter(productRepository.featuredCategory, this)
 
         recyclerCaterogy.adapter = adapterCategory
         recyclerCaterogy.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -81,7 +85,7 @@ ProductCategoryFragment.Callback{
         recyclerProduct = findViewById(R.id.recyclerview_product)
 
 
-        val adapterProduct = ProductAdapter(emptyList(), this)
+        val adapterProduct = ProductAdapter(productRepository.featuredProduct, this)
         recyclerProduct.adapter = adapterProduct
         recyclerProduct.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
