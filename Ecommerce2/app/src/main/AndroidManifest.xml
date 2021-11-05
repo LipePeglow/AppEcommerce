@@ -50,7 +50,7 @@
             android:name=".SettingsActivity"
             android:exported="true"/>
         <activity android:name=".CartActivity" />
-        <activity android:name=".model.OrderActivity" />
+        <activity android:name=".OrderActivity" />
 
         <provider
             android:authorities="${applicationId}.fileprovider"

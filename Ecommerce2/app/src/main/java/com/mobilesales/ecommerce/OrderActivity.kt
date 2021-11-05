@@ -1,4 +1,4 @@
-package com.mobilesales.ecommerce.model
+package com.mobilesales.ecommerce
 
 import android.os.Bundle
 import android.widget.TextView
