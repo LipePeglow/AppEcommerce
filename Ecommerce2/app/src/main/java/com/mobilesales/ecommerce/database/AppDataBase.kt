@@ -20,7 +20,7 @@ import com.mobilesales.ecommerce.model.*
 
 abstract class AppDataBase : RoomDatabase() {
 
-
+abstract fun userDao() : UserDao
 
 
     companion object {
