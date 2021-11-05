@@ -12,20 +12,16 @@ interface UserDao {
 
     @Query("SELECT * FROM users WHERE id = :userId")
     fun loadUserById(userId : String) : User
-
     @Transaction
     @Query("SELECT * FROM users WHERE id = :userId")
     fun loadUserWithAddress(userId : String) : UserWithAddress
 
     @Insert
     fun insert (user: User)
-
     @Update
     fun update(user: User)
-
     @Insert
     fun insert (userAddress: UserAddress)
-
     @Update
     fun update (userAddress: UserAddress)
 }
