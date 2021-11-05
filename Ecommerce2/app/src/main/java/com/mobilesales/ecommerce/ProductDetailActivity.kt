@@ -11,6 +11,8 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.mobilesales.ecommerce.model.Product
+import com.mobilesales.ecommerce.model.ProductColor
+import com.mobilesales.ecommerce.model.ProductSize
 import kotlinx.android.synthetic.main.activity_product_detail.*
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -54,7 +56,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     fun fillChipColor (){
 
-        val colors = product.colors
+        val colors = emptyArray<ProductColor>()//product.colors
 
         for (color in colors){
             val chip = Chip(ContextThemeWrapper(chipGroupColor.context, R.style.Widget_MaterialComponents_Chip_Choice))
@@ -71,7 +73,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     fun fillChipSize (){
 
-        val sizes = product.sizes
+        val sizes = emptyArray<ProductSize>()//product.sizes
 
         for (size in sizes){
             val chip = Chip(ContextThemeWrapper(chipGroupSize.context, R.style.Widget_MaterialComponents_Chip_Choice))

@@ -73,14 +73,7 @@ ProductCategoryFragment.Callback{
 
         recyclerCaterogy = findViewById(R.id.recyclerview_product_category_main)
 
-        val arrayCategory = arrayListOf<ProductCategory>(
-            ProductCategory("1", "Camisetas",fillRvProduct()),
-            ProductCategory("2", "Calças",fillRvProduct()),
-            ProductCategory("3", "Meias"),
-            ProductCategory("4", "Tênis"),
-            ProductCategory("5", "Casacos"))
-
-        val adapterCategory = ProductCategoryAdapter(arrayCategory, this)
+        val adapterCategory = ProductCategoryAdapter(emptyList(), this)
 
         recyclerCaterogy.adapter = adapterCategory
         recyclerCaterogy.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -88,43 +81,10 @@ ProductCategoryFragment.Callback{
         recyclerProduct = findViewById(R.id.recyclerview_product)
 
 
-        val adapterProduct = ProductAdapter(fillRvProduct(), this)
+        val adapterProduct = ProductAdapter(emptyList(), this)
         recyclerProduct.adapter = adapterProduct
         recyclerProduct.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
-
-    fun fillRvProduct() : List<Product>{
-
-        val product1: Product = Product(
-            "1","Camiseta 89",
-            ProductCategory("id", "Camisetas"),
-            "Camisseta Leve.",
-            19.90,
-            arrayListOf(
-                ProductColor("1","Branco","#ffffff"),
-                ProductColor("2","Preta","#000000")),
-            arrayListOf(
-                ProductSize("1", "P",),
-                ProductSize("1", "M")),
-            emptyList())
-
-
-        val product2: Product = Product(
-            "1","Calça Jeans",
-            ProductCategory("id", "Calças"),
-            "Calça com proteção para chuva.",
-            39.90,
-            arrayListOf(
-                ProductColor("1","Branco","#ffffff"),
-                ProductColor("2","Preta","#000000")),
-            arrayListOf(
-                ProductSize("1", "G",),
-                ProductSize("1", "GG")),
-            emptyList())
-
-        return arrayListOf(product1, product2)
-    }
-
 
     override fun onBackPressed() {
 

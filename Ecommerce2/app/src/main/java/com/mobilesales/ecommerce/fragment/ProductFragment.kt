@@ -20,10 +20,10 @@ class ProductFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (arguments != null){
-
-            arrayProduct = (arguments?.getSerializable("CATEGORY") as ProductCategory).product
-        }
+//       if (arguments != null){
+//
+//            arrayProduct = (arguments?.getSerializable("CATEGORY") as ProductCategory).products
+//        }
 
     }
 
