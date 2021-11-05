@@ -10,4 +10,3 @@ data  class ProductImage (
 
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
     var path: String ) : Serializable
- 

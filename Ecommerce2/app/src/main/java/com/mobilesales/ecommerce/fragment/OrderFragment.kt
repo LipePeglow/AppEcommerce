@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobilesales.ecommerce.R
-import com.mobilesales.ecommerce.adapter.CartAdapter
 import com.mobilesales.ecommerce.adapter.OrderAdapter
 import com.mobilesales.ecommerce.model.*
 import java.util.*

@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.adapter.CartAdapter
-import com.mobilesales.ecommerce.adapter.ProductAdapter
 import com.mobilesales.ecommerce.model.*
 
 class CartFragment : Fragment (){
