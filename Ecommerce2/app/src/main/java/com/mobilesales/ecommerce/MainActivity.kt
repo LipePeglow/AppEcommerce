@@ -10,10 +10,12 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +24,8 @@ import com.mobilesales.ecommerce.adapter.ProductAdapter
 import com.mobilesales.ecommerce.adapter.ProductCategoryAdapter
 import com.mobilesales.ecommerce.fragment.ProductCategoryFragment
 import com.mobilesales.ecommerce.model.*
-import com.mobilesales.ecommerce.repository.ProductRepository
+
+import com.mobilesales.ecommerce.viewModel.ProductViewModel
 
 class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener,
@@ -36,15 +39,13 @@ ProductCategoryFragment.Callback{
     lateinit var recyclerCaterogy: RecyclerView
     lateinit var recyclerProduct: RecyclerView
     lateinit var imageProfile : ImageView
-    lateinit var productRepository : ProductRepository
+    private val productViewModel by  viewModels<ProductViewModel>()
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        productRepository = ProductRepository(application)
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -77,7 +78,13 @@ ProductCategoryFragment.Callback{
 
         recyclerCaterogy = findViewById(R.id.recyclerview_product_category_main)
 
-        val adapterCategory = ProductCategoryAdapter(productRepository.featuredCategories, this)
+        val adapterCategory = ProductCategoryAdapter( this)
+
+        productViewModel.featuredCategories.observe(this, Observer {
+            adapterCategory.list = it
+            adapterCategory.notifyDataSetChanged()
+        })
+
 
         recyclerCaterogy.adapter = adapterCategory
         recyclerCaterogy.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -85,7 +92,13 @@ ProductCategoryFragment.Callback{
         recyclerProduct = findViewById(R.id.recyclerview_product)
 
 
-        val adapterProduct = ProductAdapter(productRepository.featuredProducts, this)
+        val adapterProduct = ProductAdapter(this)
+
+        productViewModel.featuredProducts.observe(this, Observer{
+            adapterProduct.list = it
+            adapterProduct.notifyDataSetChanged()
+        })
+
         recyclerProduct.adapter = adapterProduct
         recyclerProduct.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }

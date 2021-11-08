@@ -5,19 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mobilesales.ecommerce.MainActivity
-import com.mobilesales.ecommerce.ProductCategoryActivity
 import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.adapter.ProductCategoryAdapter
 import com.mobilesales.ecommerce.model.ProductCategory
-import com.mobilesales.ecommerce.repository.ProductRepository
+import com.mobilesales.ecommerce.repository.ProductsRepository
+import com.mobilesales.ecommerce.viewModel.ProductViewModel
 
 
 class ProductCategoryFragment : Fragment() {
 
     lateinit var recyclerCaterogy: RecyclerView
+    private val productViewModel by viewModels<ProductViewModel>()
+
 
 
     override fun onCreateView(
@@ -27,9 +29,9 @@ class ProductCategoryFragment : Fragment() {
 
         recyclerCaterogy = view.findViewById(R.id.recyclerview_product_category)
 
-        val productRepository = ProductRepository(requireActivity().application)
+        val productRepository = ProductsRepository(requireActivity().application)
 
-        val adapterCategory = ProductCategoryAdapter(productRepository.allCategories, requireContext())
+        val adapterCategory = ProductCategoryAdapter( requireContext())
 
     recyclerCaterogy.adapter = adapterCategory
     recyclerCaterogy.layoutManager = GridLayoutManager(requireContext(), 2)

@@ -12,7 +12,8 @@ import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.fragment.ProductCategoryFragment
 import com.mobilesales.ecommerce.model.ProductCategory
 
-class ProductCategoryAdapter(val list: List<ProductCategory>, val context: Context) : RecyclerView.Adapter<ProductCategoryAdapter.ViewHolder>(){
+class ProductCategoryAdapter( val context: Context) : RecyclerView.Adapter<ProductCategoryAdapter.ViewHolder>(){
+    var list: List<ProductCategory> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_product_category, parent, false)
