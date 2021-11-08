@@ -49,7 +49,7 @@ class ProductDetailActivity : AppCompatActivity() {
         productViewModel.getProductWithVariants(product.id).observe(this, Observer {
             productsVariants = it
             product = productsVariants.product
-            
+
             textTitle = findViewById(R.id.toolbar_title)
             textTitle.text = product.title
 

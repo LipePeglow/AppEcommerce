@@ -18,7 +18,9 @@ import com.mobilesales.ecommerce.model.Order
 import com.mobilesales.ecommerce.model.Product
 import java.util.*
 
-class OrderAdapter (val list: List<Order>, val context: Context) : RecyclerView.Adapter<OrderAdapter.ViewHolder>(){
+class OrderAdapter ( val context: Context) : RecyclerView.Adapter<OrderAdapter.ViewHolder>(){
+
+    var list: List<Order> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_order, parent, false)

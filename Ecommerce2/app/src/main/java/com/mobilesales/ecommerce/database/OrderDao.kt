@@ -1,5 +1,6 @@
 package com.mobilesales.ecommerce.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -13,7 +14,7 @@ interface OrderDao {
     @Query("SELECT * FROM `order` WHERE id = :orderId")
     fun loadOrderAndProductById(orderId: String): List<OrderWithOrderedProducts>
     @Query("SELECT * FROM `order` WHERE userId = :userId")
-    fun loadOrderByUser(userId: String): List<Order>
+    fun loadAllOrdersByUser(userId: String): LiveData<List<Order>>
     @Query("SELECT * FROM `order` WHERE userId = :userId")
     fun loadOrderAndProductByUser(userId: String): List<OrderWithOrderedProducts>
 
