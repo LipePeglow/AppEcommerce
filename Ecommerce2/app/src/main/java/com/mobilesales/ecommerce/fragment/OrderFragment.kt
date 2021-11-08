@@ -1,5 +1,6 @@
 package com.mobilesales.ecommerce.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +11,18 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobilesales.ecommerce.R
+import com.mobilesales.ecommerce.UserLoginActivity
 import com.mobilesales.ecommerce.adapter.OrderAdapter
 import com.mobilesales.ecommerce.model.*
 import com.mobilesales.ecommerce.viewModel.OrderViewModel
+import com.mobilesales.ecommerce.viewModel.UserViewModel
 import java.util.*
 
 class OrderFragment : Fragment() {
 
     lateinit var recyclerOrder: RecyclerView
     private val orderViewModel by viewModels<OrderViewModel>()
+    private val userViewModel by viewModels <UserViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,10 +35,19 @@ class OrderFragment : Fragment() {
         recyclerOrder = view.findViewById(R.id.rv_order)
 
         val adapterOrder = OrderAdapter( requireContext())
-        orderViewModel.getOrdersByUser("").observe(viewLifecycleOwner, Observer{
-            adapterOrder.list = it
-            adapterOrder.notifyDataSetChanged()
+
+        userViewModel.isLogged().observe(viewLifecycleOwner, Observer{
+
+            if(it != null)
+            orderViewModel.getOrdersByUser(it.user.id).observe(viewLifecycleOwner, Observer{ orders ->
+                adapterOrder.list = orders
+                adapterOrder.notifyDataSetChanged()
+            })
+            else
+                activity?.finish()
+                startActivity(Intent(activity, UserLoginActivity::class.java))
         })
+
 
         recyclerOrder.adapter = adapterOrder
         recyclerOrder.layoutManager =

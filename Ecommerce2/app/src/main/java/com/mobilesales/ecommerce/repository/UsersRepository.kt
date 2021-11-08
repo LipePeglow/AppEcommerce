@@ -15,7 +15,7 @@ class UsersRepository (application: Application) {
 
     fun insert(user : User) = userDao.insert(user)
 
-    fun insertUser(userAddress : UserAddress) = userDao.insert(userAddress)
+    fun insert(userAddress : UserAddress) = userDao.insert(userAddress)
 
     fun updateUser(user : User) = userDao.update(user)
 

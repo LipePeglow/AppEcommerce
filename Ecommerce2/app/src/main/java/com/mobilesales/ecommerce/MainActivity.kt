@@ -26,6 +26,7 @@ import com.mobilesales.ecommerce.fragment.ProductCategoryFragment
 import com.mobilesales.ecommerce.model.*
 
 import com.mobilesales.ecommerce.viewModel.ProductViewModel
+import com.mobilesales.ecommerce.viewModel.UserViewModel
 
 class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener,
@@ -40,6 +41,7 @@ ProductCategoryFragment.Callback{
     lateinit var recyclerProduct: RecyclerView
     lateinit var imageProfile : ImageView
     private val productViewModel by  viewModels<ProductViewModel>()
+    private val userViewmodel by  viewModels<UserViewModel>()
 
 
 
@@ -140,7 +142,11 @@ ProductCategoryFragment.Callback{
                 val intent = Intent(this, CartActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_logout -> Toast.makeText(this, "Sair", Toast.LENGTH_LONG).show()
+            R.id.nav_logout -> {
+                userViewmodel.logout()
+                finish()
+                startActivity(intent)
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
 
@@ -164,5 +170,10 @@ ProductCategoryFragment.Callback{
         }else{
             imageProfile.setImageResource(R.drawable.profile_image)
         }
+        userViewmodel.isLogged().observe(this,Observer{
+            it?.let {
+                textLogin.text = "${it.user.name} ${it.user.surname}"
+            }
+        })
     }
 }
