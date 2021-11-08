@@ -10,11 +10,11 @@ import com.mobilesales.ecommerce.model.OrderWithOrderedProducts
 @Dao
 interface OrderDao {
 
-    @Query("SELECT * FROM orders WHERE id = :orderId")
+    @Query("SELECT * FROM `order` WHERE id = :orderId")
     fun loadOrderAndProductById(orderId: String): List<OrderWithOrderedProducts>
-    @Query("SELECT * FROM orders WHERE userId = :userId")
+    @Query("SELECT * FROM `order` WHERE userId = :userId")
     fun loadOrderByUser(userId: String): List<Order>
-    @Query("SELECT * FROM orders WHERE userId = :userId")
+    @Query("SELECT * FROM `order` WHERE userId = :userId")
     fun loadOrderAndProductByUser(userId: String): List<OrderWithOrderedProducts>
 
 

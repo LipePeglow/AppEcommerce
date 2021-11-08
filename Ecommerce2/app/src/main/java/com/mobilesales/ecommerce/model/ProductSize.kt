@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.util.*
 
-@Entity(tableName = "products_sizes")
+@Entity(tableName = "product_sizes")
 data class ProductSize (
 
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
-    var productId : String,
+    var productId: String,
     var size: String) : Serializable

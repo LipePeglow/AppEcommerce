@@ -8,12 +8,16 @@ import com.mobilesales.ecommerce.model.ProductVariants
 class ProductRepository(application: Application) {
 
     private val productDao = AppDataBase.getDataBase(application).productDao()
+
     private val productCategoryDao = AppDataBase.getDataBase(application).productCategoryDao()
 
-    val allCategory = productCategoryDao.loadAll()
-    val featuredCategory = productCategoryDao.loadAllFeatured()
-    val featuredProduct = productDao.loadAllFeatured()
+    val allCategories = productCategoryDao.loadAll()
 
-    fun loadProductByCategory(categoryId: String) : List<Product> = productDao.loadAllByCategory(categoryId)
-    fun loadProductById(productId: String): ProductVariants = productDao.loadProductWithVariants(productId)
+    val featuredCategories = productCategoryDao.loadAllFeatured()
+
+    val featuredProducts = productDao.loadAllFeatured()
+
+    fun loadProductsByCategory(categoryId: String) : List<Product> = productDao.loadAllByCategory(categoryId)
+
+    fun loadProductById(productId: String) : ProductVariants = productDao.loadProductWithVariants(productId)
 }

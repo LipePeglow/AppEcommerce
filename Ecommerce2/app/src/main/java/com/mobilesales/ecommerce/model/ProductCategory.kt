@@ -5,10 +5,9 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.util.*
 
-@Entity(tableName = "product_category")
+@Entity(tableName = "product_categories")
 data class ProductCategory (
-
-    @PrimaryKey val id : String = UUID.randomUUID().toString(),
+    @PrimaryKey val id: String = UUID.randomUUID().toString(),
     var title: String,
-    val featured : Boolean = false) : Serializable
+    var featured: Boolean = false) : Serializable
 

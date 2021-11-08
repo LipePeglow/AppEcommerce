@@ -77,7 +77,7 @@ ProductCategoryFragment.Callback{
 
         recyclerCaterogy = findViewById(R.id.recyclerview_product_category_main)
 
-        val adapterCategory = ProductCategoryAdapter(productRepository.featuredCategory, this)
+        val adapterCategory = ProductCategoryAdapter(productRepository.featuredCategories, this)
 
         recyclerCaterogy.adapter = adapterCategory
         recyclerCaterogy.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -85,7 +85,7 @@ ProductCategoryFragment.Callback{
         recyclerProduct = findViewById(R.id.recyclerview_product)
 
 
-        val adapterProduct = ProductAdapter(productRepository.featuredProduct, this)
+        val adapterProduct = ProductAdapter(productRepository.featuredProducts, this)
         recyclerProduct.adapter = adapterProduct
         recyclerProduct.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }

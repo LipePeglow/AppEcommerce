@@ -6,8 +6,7 @@ import java.io.Serializable
 import java.util.*
 
 @Entity(tableName = "product_images")
-data  class ProductImage (
-
+data class ProductImage (
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
-    var productId : String,
-    var path: String ) : Serializable
+    var productId: String,
+    var path: String) : Serializable

@@ -5,10 +5,10 @@ import androidx.room.Embedded
 import androidx.room.Relation
 
 data class UserWithAddress (
-    @Embedded val user : User,
+    @Embedded val user: User,
     @Relation(
         parentColumn = "id",
         entityColumn = "userId"
     )
-    val adress : List<UserAddress> = emptyList(),
-    )
+    val addresses: List<UserAddress> = emptyList()
+)

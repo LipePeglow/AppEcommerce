@@ -10,8 +10,8 @@ import java.util.*
 data class User (
 
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
-    @ColumnInfo(name = "e-mail")var email: String,
-    var nome: String,
-    var surName: String,
+    var email: String,
+    var name: String,
+    var surname: String,
     var password: String,
     var image: String) : Serializable

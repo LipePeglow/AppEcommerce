@@ -40,7 +40,7 @@ class ProductFragment : Fragment() {
 
         val productRepository = ProductRepository(requireActivity().application)
 
-        val adapterProduct = ProductAdapter(productRepository.loadProductByCategory(category.id), requireContext())
+        val adapterProduct = ProductAdapter(productRepository.loadProductsByCategory(category.id), requireContext())
 
         recyclerProduct.adapter = adapterProduct
 

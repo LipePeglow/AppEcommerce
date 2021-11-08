@@ -15,9 +15,9 @@ data class ProductVariants (
         parentColumn = "id",
         entityColumn = "productId"
     )
-    val size: List<ProductSize>,
+    val sizes: List<ProductSize>,
     @Relation(
         parentColumn = "id",
         entityColumn = "productId"
     )
-    val images:List<ProductImage>)
+    val images: List<ProductImage>)

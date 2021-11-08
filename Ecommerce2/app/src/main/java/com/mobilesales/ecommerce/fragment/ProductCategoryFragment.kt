@@ -29,7 +29,7 @@ class ProductCategoryFragment : Fragment() {
 
         val productRepository = ProductRepository(requireActivity().application)
 
-        val adapterCategory = ProductCategoryAdapter(productRepository.allCategory, requireContext())
+        val adapterCategory = ProductCategoryAdapter(productRepository.allCategories, requireContext())
 
     recyclerCaterogy.adapter = adapterCategory
     recyclerCaterogy.layoutManager = GridLayoutManager(requireContext(), 2)

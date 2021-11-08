@@ -5,15 +5,15 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.util.*
 
-@Entity(tableName = "Adress")
+@Entity(tableName = "user_adresses")
 data class UserAddress(
 
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
     var userId: String,
-    var adressLine1: String,
-    var adressLine2: String,
+    var addressLine1: String,
+    var addressLine2: String,
     var number: String,
     var state: String,
     var city: String,
-    var zipeCode: String,
+    var zipCode: String,
     var country: String) : Serializable

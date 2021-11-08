@@ -82,7 +82,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     fun fillChipSize (){
 
-        val sizes = productsVariants.size
+        val sizes = productsVariants.sizes
 
         for (size in sizes){
             val chip = Chip(ContextThemeWrapper(chipGroupSize.context, R.style.Widget_MaterialComponents_Chip_Choice))

@@ -7,12 +7,12 @@ import com.mobilesales.ecommerce.model.ProductCategory
 @Dao
 interface ProductCategoryDao {
 
-    @Query("SELECT * FROM product_category")
+    @Query("SELECT * FROM product_categories")
     fun loadAll (): List<ProductCategory>
-    @Query("SELECT * FROM product_category WHERE featured = 1")
+    @Query("SELECT * FROM product_categories WHERE featured = 1")
     fun loadAllFeatured(): List<ProductCategory>
     @Transaction
-    @Query("SELECT * FROM product_category WHERE id = :categoryId")
+    @Query("SELECT * FROM product_categories WHERE id = :categoryId")
     fun loadCategoryWithProductsById (categoryId: String): List<CategoryWithProducts>
 
     @Insert

@@ -7,8 +7,7 @@ import java.util.*
 
 @Entity(tableName = "ordered_products", primaryKeys = ["orderedProductId","orderId"])
 data class OrderedProduct (
-
     val orderedProductId: String = UUID.randomUUID().toString(),
-    var orderId:String,
-    @Embedded  val product: Product,
+    var orderId: String,
+    @Embedded val product: Product,
     var quantity: Int) : Serializable
