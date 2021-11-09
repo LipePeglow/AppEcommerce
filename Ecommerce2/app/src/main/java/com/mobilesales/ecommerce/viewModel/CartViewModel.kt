@@ -5,14 +5,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.mobilesales.ecommerce.model.Order
 import com.mobilesales.ecommerce.model.OrderedProduct
+import com.mobilesales.ecommerce.model.Product
 import com.mobilesales.ecommerce.model.ProductVariants
 import java.util.*
 
 class CartViewModel(application: Application) : AndroidViewModel(application) {
 
-    val cartPrice = MutableLiveData<Double>()
+    val cartPrice = MutableLiveData<Double>(CartViewModel.order.price)
 
-    val orderedProducts = MutableLiveData<MutableList<OrderedProduct>>()
+    val orderedProducts = MutableLiveData<MutableList<OrderedProduct>>(CartViewModel.orderedProducts)
 
     companion object {
         val order = Order(
@@ -23,6 +24,43 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         )
 
         private val orderedProducts = mutableListOf<OrderedProduct>()
+
+        fun addProduct(product : ProductVariants, quantity : Int){
+            if (compare(product)){
+                updateQuantity(product.product, quantity)
+                return
+            }
+
+            val order = OrderedProduct(
+                orderId = order.id,
+                product = product.product,
+                quantity = quantity)
+
+            product.colors.forEach{
+                if (it.checked) order.color = it.name}
+            product.sizes.forEach{
+                if (it.checked) order.size = it.size}
+
+            orderedProducts.add(order)
+            updatePrice()
+        }
+
+        private fun updateQuantity(product: Product, quantity: Int) {
+            orderedProducts.forEach {
+                if (it.product.id == product.id) {
+                    if (quantity > 0)
+                        it.quantity = quantity
+                    else
+                        orderedProducts.remove(it)
+                    updatePrice()
+                    return
+                }
+            }
+        }
+
+        private fun updatePrice() {
+            order.price = orderedProducts.sumByDouble { it.quantity * it.product.price }
+        }
 
 
         private fun compare(product: ProductVariants): Boolean {
