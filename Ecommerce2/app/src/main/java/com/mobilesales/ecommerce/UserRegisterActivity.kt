@@ -44,22 +44,57 @@ class UserRegisterActivity : AppCompatActivity() {
 
         btnUserRegister = findViewById(R.id.btn_user_register)
         btnUserRegister.setOnClickListener {
-            val user = User(name = registerName.text.toString(),
-                email = registerEmail.text.toString(),
-                password = registerPassword.text.toString(),
-                image = "",
-                surname = "")
+            if (validate()) {
+                val user = User(
+                    name = registerName.text.toString(),
+                    email = registerEmail.text.toString(),
+                    password = registerPassword.text.toString(),
+                    image = "",
+                    surname = ""
+                )
 
-            userViewModel.createUser(user)
-            userViewModel.login(user.email, user.password).observe(this, Observer {
-                ActivityCompat.finishAffinity(this)
-                finish()
-            })
+                userViewModel.createUser(user)
+                userViewModel.login(user.email, user.password).observe(this, Observer {
+                    finish()
+                })
+            }
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+    private fun validate() : Boolean {
+        var isValid = true
+
+        registerName.apply {
+            if (text.isNullOrEmpty()) {
+                error = "Preencha o  nome."
+                isValid = false
+            } else {
+                error = null
+            }
+        }
+
+        registerEmail.apply {
+            if (text.isNullOrEmpty()) {
+                error = "Preencha o  email."
+                isValid = false
+            } else {
+                error = null
+            }
+        }
+        registerPassword.apply {
+            if (text.isNullOrEmpty()) {
+                error = "Preencha o  senha."
+                isValid = false
+            } else {
+                error = null
+            }
+
+        }
+        return isValid
     }
-}
+
+        override fun onSupportNavigateUp(): Boolean {
+            onBackPressed()
+            return true
+        }
+    }
