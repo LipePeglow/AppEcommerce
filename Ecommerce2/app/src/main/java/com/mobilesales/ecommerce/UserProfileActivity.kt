@@ -8,9 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +19,7 @@ import androidx.lifecycle.observe
 import androidx.preference.PreferenceManager
 import androidx.room.Update
 import com.google.android.material.textfield.TextInputEditText
+import com.mobilesales.ecommerce.model.UserAddress
 import com.mobilesales.ecommerce.model.UserWithAddress
 import com.mobilesales.ecommerce.viewModel.UserViewModel
 import kotlinx.android.synthetic.main.activity_user_profile.*
@@ -49,6 +48,7 @@ class UserProfileActivity : AppCompatActivity() {
     lateinit var userAddressCep : TextInputEditText
     lateinit var userAddressState : Spinner
     lateinit var userWithAddress: UserWithAddress
+    lateinit var btnUserUpdate : Button
     private val userViewModel by viewModels <UserViewModel>()
 
     val REQUEST_TAKE_PHOTO = 1
@@ -75,6 +75,8 @@ class UserProfileActivity : AppCompatActivity() {
         userAddressCity = findViewById(R.id.txt_edit_city)
         userAddressCep = findViewById(R.id.txt_edit_cep)
         userAddressState = findViewById(R.id.sp_state)
+        btnUserUpdate = findViewById(R.id.btn_user_att)
+        btnUserUpdate.setOnClickListener {update()}
 
         imageProfile = findViewById(R.id.iv_profile_image)
         imageProfile.setOnClickListener { takePicture() }
@@ -87,6 +89,7 @@ class UserProfileActivity : AppCompatActivity() {
             photoURI = Uri.parse(profileImage)
             imageProfile.setImageURI(photoURI)
         } else {
+            photoURI = Uri.parse("/")
             imageProfile.setImageResource(R.drawable.profile_image)
         }
 
@@ -117,11 +120,44 @@ class UserProfileActivity : AppCompatActivity() {
 
     }
 
-    fun Update(){
+    fun update(){
 
+        if (!validate())
+            return
+
+        userWithAddress.apply {
+            user.name = userProfileName.text.toString()
+            user.surname = userProfileSurname.text.toString()
+            user.email = userProfileEmail.text.toString()
+            user.image = photoURI.toString()
+            userViewModel.updateUser(user)
+
+            if (addresses.isEmpty()){
+                val userAddress = UserAddress(
+                    addressLine1 = userAddress1.text.toString(),
+                    addressLine2 = userAddress2.text.toString(),
+                    number = userAddressNumber.text.toString(),
+                    city = userAddressCity.text.toString(),
+                    zipCode = userAddressCep.text.toString(),
+                    state = resources.getStringArray(R.array.states)[userAddressState.selectedItemPosition],
+                    userId = user.id)
+                userViewModel.createAdress(userAddress)
+            }else{
+                addresses.first().apply {
+                    addressLine1 = userAddress1.text.toString()
+                    addressLine2 = userAddress2.text.toString()
+                    number = userAddressNumber.text.toString()
+                    city = userAddressCity.text.toString()
+                    zipCode = userAddressCep.text.toString()
+                    state = resources.getStringArray(R.array.states)[userAddressState.selectedItemPosition]
+                }
+                userViewModel.updateAdress(addresses.first())
+            }
+        }
+        Toast.makeText(this, "Dados atualizados com sucesso", Toast.LENGTH_SHORT).show()
     }
 
-    fun validate() : Boolean{
+  private fun validate() : Boolean{
         var isValid = true
 
         userProfileName.apply {
@@ -150,15 +186,7 @@ class UserProfileActivity : AppCompatActivity() {
         }
         userAddress1.apply {
             if (text.isNullOrEmpty()){
-                error = "Preencha o campo endereço."
-                isValid = false
-            }else{
-                error = null
-            }
-        }
-        userAddress2.apply {
-            if (text.isNullOrEmpty()){
-                error = "Preencha o campo complemento."
+                error = "Preencha o campo rua/avenida."
                 isValid = false
             }else{
                 error = null
