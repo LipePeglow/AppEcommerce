@@ -10,10 +10,14 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.mobilesales.ecommerce.R
+import com.mobilesales.ecommerce.fragment.CartFragment
 import com.mobilesales.ecommerce.model.OrderedProduct
+import com.mobilesales.ecommerce.viewModel.CartViewModel
 
 
-class CartAdapter (val list: List<OrderedProduct>, val context: Context) : RecyclerView.Adapter<CartAdapter.ViewHolder>(){
+class CartAdapter (val context: Context) : RecyclerView.Adapter<CartAdapter.ViewHolder>(){
+
+    var list: MutableList<OrderedProduct> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_cart, parent, false)
@@ -25,21 +29,27 @@ class CartAdapter (val list: List<OrderedProduct>, val context: Context) : Recyc
         val orderedProduct = list[position]
         holder.title.text = orderedProduct.product.title
         holder.image.setImageResource(R.drawable.camiseta_mockup)
-//        holder.color.text = orderedProduct.product.colors[0].name
-//        holder.size.text = orderedProduct.product.sizes[0].size
+        holder.color.text = orderedProduct.color
+        holder.size.text = orderedProduct.size
         holder.quantity.text = orderedProduct.quantity.toString()
 
         holder.qtdUp.setOnClickListener {
             orderedProduct.quantity += 1
+            CartViewModel.updateQuantity(orderedProduct.product, orderedProduct.quantity)
             holder.quantity.text = orderedProduct.quantity.toString()
             updatePriceHolder(holder, orderedProduct)
+            (context as CartFragment.callBack).updateCart()
         }
         holder.qtdDown.setOnClickListener {
             orderedProduct.quantity -= 1
-            holder.quantity.text = orderedProduct.quantity.toString()
-            updatePriceHolder(holder, orderedProduct)
-        }
 
+            if (orderedProduct.quantity > 0) {
+                holder.quantity.text = orderedProduct.quantity.toString()
+                updatePriceHolder(holder, orderedProduct)
+            }
+            (context as CartFragment.callBack).updateCart()
+            notifyDataSetChanged()
+        }
         updatePriceHolder(holder, orderedProduct)
     }
 

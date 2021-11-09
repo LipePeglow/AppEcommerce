@@ -13,7 +13,8 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
 
     val cartPrice = MutableLiveData<Double>(CartViewModel.order.price)
 
-    val orderedProducts = MutableLiveData<MutableList<OrderedProduct>>(CartViewModel.orderedProducts)
+    val orderedProducts =
+        MutableLiveData<MutableList<OrderedProduct>>(CartViewModel.orderedProducts)
 
     companion object {
         val order = Order(
@@ -25,8 +26,8 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
 
         private val orderedProducts = mutableListOf<OrderedProduct>()
 
-        fun addProduct(product : ProductVariants, quantity : Int){
-            if (compare(product)){
+        fun addProduct(product: ProductVariants, quantity: Int) {
+            if (compare(product)) {
                 updateQuantity(product.product, quantity)
                 return
             }
@@ -34,18 +35,21 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
             val order = OrderedProduct(
                 orderId = order.id,
                 product = product.product,
-                quantity = quantity)
+                quantity = quantity
+            )
 
-            product.colors.forEach{
-                if (it.checked) order.color = it.name}
-            product.sizes.forEach{
-                if (it.checked) order.size = it.size}
+            product.colors.forEach {
+                if (it.checked) order.color = it.name
+            }
+            product.sizes.forEach {
+                if (it.checked) order.size = it.size
+            }
 
             orderedProducts.add(order)
             updatePrice()
         }
 
-        private fun updateQuantity(product: Product, quantity: Int) {
+        fun updateQuantity(product: Product, quantity: Int) {
             orderedProducts.forEach {
                 if (it.product.id == product.id) {
                     if (quantity > 0)
