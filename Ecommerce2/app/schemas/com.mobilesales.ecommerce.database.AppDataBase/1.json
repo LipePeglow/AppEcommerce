@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2bfa006367f7317222f4f4ac460f595e",
+    "identityHash": "ef99007a705d8988193a996f325c45f6",
     "entities": [
       {
         "tableName": "order",
@@ -364,7 +364,7 @@
       },
       {
         "tableName": "ordered_products",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`orderedProductId` TEXT NOT NULL, `orderId` TEXT NOT NULL, `quantity` INTEGER NOT NULL, `id` TEXT NOT NULL, `title` TEXT NOT NULL, `categoryId` TEXT NOT NULL, `description` TEXT NOT NULL, `price` REAL NOT NULL, `thumbnail` TEXT NOT NULL, `featured` INTEGER NOT NULL, PRIMARY KEY(`orderedProductId`, `orderId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`orderedProductId` TEXT NOT NULL, `orderId` TEXT NOT NULL, `size` TEXT NOT NULL, `color` TEXT NOT NULL, `quantity` INTEGER NOT NULL, `id` TEXT NOT NULL, `title` TEXT NOT NULL, `categoryId` TEXT NOT NULL, `description` TEXT NOT NULL, `price` REAL NOT NULL, `thumbnail` TEXT NOT NULL, `featured` INTEGER NOT NULL, PRIMARY KEY(`orderedProductId`, `orderId`))",
         "fields": [
           {
             "fieldPath": "orderedProductId",
@@ -375,6 +375,18 @@
           {
             "fieldPath": "orderId",
             "columnName": "orderId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "size",
+            "columnName": "size",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "color",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -441,7 +453,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2bfa006367f7317222f4f4ac460f595e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ef99007a705d8988193a996f325c45f6')"
     ]
   }
 }
