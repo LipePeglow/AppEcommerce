@@ -33,7 +33,7 @@ class UserViewModel (application: Application) : AndroidViewModel(application) {
     }
 
     fun isLogged():LiveData<UserWithAddress> = PreferenceManager.getDefaultSharedPreferences(getApplication()).let {
-        return userRepository.loadWithAdresses(it.getString(USER_ID, null)!!)
+        return userRepository.loadWithAdresses(it.getString(USER_ID, "")!!)
     }
 
     companion object{

@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.preference.PreferenceManager
 import com.google.android.material.textfield.TextInputEditText
+import com.mobilesales.ecommerce.model.UserWithAddress
 import com.mobilesales.ecommerce.viewModel.UserViewModel
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import kotlinx.android.synthetic.main.activity_user_register.*
@@ -40,12 +41,13 @@ class UserProfileActivity : AppCompatActivity() {
     lateinit var userProfileName: TextInputEditText
     lateinit var userProfileSurname : TextInputEditText
     lateinit var userProfileEmail : TextInputEditText
-    lateinit var userAdress1 : TextInputEditText
+    lateinit var userAddress1 : TextInputEditText
     lateinit var userAddress2 : TextInputEditText
-    lateinit var userAdressNumber : TextInputEditText
-    lateinit var userAdressCity : TextInputEditText
-    lateinit var userAdressCep : TextInputEditText
-    lateinit var userAdressState : Spinner
+    lateinit var userAddressNumber : TextInputEditText
+    lateinit var userAddressCity : TextInputEditText
+    lateinit var userAddressCep : TextInputEditText
+    lateinit var userAddressState : Spinner
+    lateinit var userWithAddress: UserWithAddress
     private val userViewModel by viewModels <UserViewModel>()
 
     val REQUEST_TAKE_PHOTO = 1
@@ -66,12 +68,12 @@ class UserProfileActivity : AppCompatActivity() {
         userProfileName = findViewById(R.id.txt_edit_name)
         userProfileSurname = findViewById(R.id.txt_edit_surname)
         userProfileEmail = findViewById(R.id.txt_edit_email)
-        userAdress1 = findViewById(R.id.txt_edit_adress)
+        userAddress1 = findViewById(R.id.txt_edit_adress)
         userAddress2 = findViewById(R.id.txt_edit_adress2)
-        userAdressNumber = findViewById(R.id.txt_edit_number)
-        userAdressCity = findViewById(R.id.txt_edit_city)
-        userAdressCep = findViewById(R.id.txt_edit_cep)
-        userAdressState = findViewById(R.id.sp_state)
+        userAddressNumber = findViewById(R.id.txt_edit_number)
+        userAddressCity = findViewById(R.id.txt_edit_city)
+        userAddressCep = findViewById(R.id.txt_edit_cep)
+        userAddressState = findViewById(R.id.sp_state)
 
         imageProfile = findViewById(R.id.iv_profile_image)
         imageProfile.setOnClickListener { takePicture() }
@@ -87,26 +89,31 @@ class UserProfileActivity : AppCompatActivity() {
             imageProfile.setImageResource(R.drawable.profile_image)
         }
 
-        userViewModel.isLogged().observe(this, Observer{
-            if (it != null){
+        userViewModel.isLogged().observe(this, androidx.lifecycle.Observer {
+            if (it != null) {
+                userWithAddress = it
                 userProfileName.setText(it.user.name)
                 userProfileSurname.setText(it.user.surname)
                 userProfileEmail.setText(it.user.email)
-                it.addresses.first().let {
-                    userAdress1.setText(it.addressLine1)
-                    userAddress2.setText(it.addressLine2)
-                    userAdressNumber.setText(it.number)
-                    userAdressCity.setText(it.city)
-                    userAdressCep.setText(it.zipCode)
-                    resources.getStringArray(R.array.states).asList().indexOf(it.state).let {
-                        userAdressState.setSelection(it)
+                if (it.addresses.isNotEmpty()) {
+                    it.addresses.first().let { address ->
+                        userAddress1.setText(address.addressLine1)
+                        userAddress2.setText(address.addressLine2)
+                        userAddressNumber.setText(address.number)
+                        userAddressCity.setText(address.city)
+                        userAddressCep.setText(address.zipCode)
+                        resources.getStringArray(R.array.states).asList().indexOf(address.state)
+                            .let {
+                                userAddressState.setSelection(it)
+                            }
                     }
                 }
-            }else{
+            } else {
                 startActivity(Intent(this, UserLoginActivity::class.java))
                 finish()
             }
         })
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

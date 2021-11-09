@@ -19,9 +19,11 @@ class UserRegisterActivity : AppCompatActivity() {
     lateinit var registerName: TextInputEditText
     lateinit var registerEmail: TextInputEditText
     lateinit var registerPassword: TextInputEditText
-    lateinit var btnUserRegister : Button
+    lateinit var btnUserRegister: Button
 
-    private val userViewModel by viewModels <UserViewModel>()
+    private val userViewModel by viewModels<UserViewModel>()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,20 +43,19 @@ class UserRegisterActivity : AppCompatActivity() {
         registerPassword = findViewById(R.id.txt_edit_password)
 
         btnUserRegister = findViewById(R.id.btn_user_register)
-        btnUserRegister.setOnClickListener{
-             val user = User(name = registerName.text.toString(),
-             email = registerEmail.text.toString(),
-             password = registerPassword.text.toString(),
-             image = "",
-             surname = "")
+        btnUserRegister.setOnClickListener {
+            val user = User(name = registerName.text.toString(),
+                email = registerEmail.text.toString(),
+                password = registerPassword.text.toString(),
+                image = "",
+                surname = "")
 
             userViewModel.createUser(user)
-            userViewModel.login(user.email, user.password).observe(this, Observer{
+            userViewModel.login(user.email, user.password).observe(this, Observer {
                 ActivityCompat.finishAffinity(this)
                 finish()
             })
         }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
