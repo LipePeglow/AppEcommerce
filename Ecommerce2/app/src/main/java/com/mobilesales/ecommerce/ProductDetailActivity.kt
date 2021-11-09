@@ -73,7 +73,6 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private fun addToCart() {
         if (chipGroupColor.checkedChipId == View.NO_ID || chipGroupSize.checkedChipId == View.NO_ID) {
-
             Toast.makeText(this, "Selecione uma cor e um tamanho", Toast.LENGTH_SHORT).show()
             return
         }

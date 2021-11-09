@@ -66,7 +66,7 @@ class UserRegisterActivity : AppCompatActivity() {
 
         registerName.apply {
             if (text.isNullOrEmpty()) {
-                error = "Preencha o  nome."
+                error = "Preencha seu nome."
                 isValid = false
             } else {
                 error = null
@@ -75,7 +75,7 @@ class UserRegisterActivity : AppCompatActivity() {
 
         registerEmail.apply {
             if (text.isNullOrEmpty()) {
-                error = "Preencha o  email."
+                error = "Preencha seu email."
                 isValid = false
             } else {
                 error = null
@@ -83,7 +83,7 @@ class UserRegisterActivity : AppCompatActivity() {
         }
         registerPassword.apply {
             if (text.isNullOrEmpty()) {
-                error = "Preencha o  senha."
+                error = "Preencha uma senha."
                 isValid = false
             } else {
                 error = null
