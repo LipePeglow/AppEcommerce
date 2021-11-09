@@ -19,6 +19,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.preference.PreferenceManager
+import androidx.room.Update
 import com.google.android.material.textfield.TextInputEditText
 import com.mobilesales.ecommerce.model.UserWithAddress
 import com.mobilesales.ecommerce.viewModel.UserViewModel
@@ -114,6 +115,80 @@ class UserProfileActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    fun Update(){
+
+    }
+
+    fun validate() : Boolean{
+        var isValid = true
+
+        userProfileName.apply {
+            if (text.isNullOrEmpty()){
+                error = "Preencha o campo nome."
+                isValid = false
+            }else{
+                error = null
+            }
+        }
+        userProfileSurname.apply {
+            if (text.isNullOrEmpty()){
+                error = "Preencha o campo sobrenome."
+                isValid = false
+            }else{
+                error = null
+            }
+        }
+        userProfileEmail.apply {
+            if (text.isNullOrEmpty()){
+                error = "Preencha o campo email."
+                isValid = false
+            }else{
+                error = null
+            }
+        }
+        userAddress1.apply {
+            if (text.isNullOrEmpty()){
+                error = "Preencha o campo endereço."
+                isValid = false
+            }else{
+                error = null
+            }
+        }
+        userAddress2.apply {
+            if (text.isNullOrEmpty()){
+                error = "Preencha o campo complemento."
+                isValid = false
+            }else{
+                error = null
+            }
+        }
+        userAddressNumber.apply {
+            if (text.isNullOrEmpty()){
+                error = "Preencha o campo numero."
+                isValid = false
+            }else{
+                error = null
+            }
+        }
+        userAddressCity.apply {
+            if (text.isNullOrEmpty()){
+                error = "Preencha o campo cidade."
+                isValid = false
+            }else{
+                error = null
+            }
+        }
+        userAddressCep.apply {
+            if (text.isNullOrEmpty()){
+                error = "Preencha o campo cep."
+                isValid = false
+            }else{
+                error = null
+            }
+        }
+        return  isValid
     }
 
     override fun onSupportNavigateUp(): Boolean {
