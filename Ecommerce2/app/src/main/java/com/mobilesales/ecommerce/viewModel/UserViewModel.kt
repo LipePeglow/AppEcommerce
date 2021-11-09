@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.mobilesales.ecommerce.model.User
+import com.mobilesales.ecommerce.model.UserAddress
 import com.mobilesales.ecommerce.model.UserWithAddress
 import com.mobilesales.ecommerce.repository.UsersRepository
 
@@ -15,6 +16,12 @@ class UserViewModel (application: Application) : AndroidViewModel(application) {
     private val userRepository = UsersRepository(getApplication())
 
     fun createUser (user: User) = userRepository.insert(user)
+
+    fun createAdress (userAdress: UserAddress) = userRepository.insert(userAdress)
+
+    fun updateUser (user: User) = userRepository.updateUser(user)
+
+    fun updateAdress (userAddress : UserAddress) = userRepository.updateUser(userAddress)
 
     fun login (email : String, password : String) : MutableLiveData<User> {
         return MutableLiveData(

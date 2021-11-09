@@ -10,5 +10,5 @@ data class UserWithAddress (
         parentColumn = "id",
         entityColumn = "userId"
     )
-    val addresses: List<UserAddress> = emptyList()
+    val addresses: MutableList<UserAddress> = mutableListOf()
 )
