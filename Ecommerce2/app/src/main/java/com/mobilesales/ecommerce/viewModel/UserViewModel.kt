@@ -15,7 +15,7 @@ class UserViewModel (application: Application) : AndroidViewModel(application) {
 
     private val userRepository = UsersRepository(getApplication())
 
-    fun createUser (user: User) = userRepository.insert(user)
+    fun createUser (user: User) = userRepository.createUser(user)
 
     fun createAdress (userAdress: UserAddress) = userRepository.insert(userAdress)
 
@@ -23,17 +23,8 @@ class UserViewModel (application: Application) : AndroidViewModel(application) {
 
     fun updateAdress (userAddress : UserAddress) = userRepository.updateUser(userAddress)
 
-    fun login (email : String, password : String) : MutableLiveData<User> {
-        return MutableLiveData(
-            userRepository.login(email, password).also { user ->
-                PreferenceManager.getDefaultSharedPreferences(getApplication()).let {
+    fun login (email : String, password : String) : LiveData<User> = userRepository.login(email, password)
 
-                    if (user != null)
-                         it.edit().putString(USER_ID, user.id).apply()
-                }
-            }
-        )
-    }
     fun logout() = PreferenceManager.getDefaultSharedPreferences(getApplication()).let{
         it.edit().remove(USER_ID).apply()
 
