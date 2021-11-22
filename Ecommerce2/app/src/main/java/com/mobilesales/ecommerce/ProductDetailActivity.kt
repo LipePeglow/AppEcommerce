@@ -90,61 +90,35 @@ class ProductDetailActivity : AppCompatActivity() {
     fun fillChipColor() {
 
         val colors = productsVariants.colors
+        chipGroupColor.removeAllViews()
 
-        for (color in colors) {
-            val chip = Chip(
-                ContextThemeWrapper(
-                    chipGroupColor.context,
-                    R.style.Widget_MaterialComponents_Chip_Choice
-                )
-            )
+        for (color in colors) { val chip = Chip(ContextThemeWrapper(chipGroupColor.context, R.style.Widget_MaterialComponents_Chip_Choice))
             chip.tag = colors.indexOf(color)
             chip.text = color.name
             chip.isCheckable = true
             chip.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor(color.code))
             chip.chipStrokeWidth = 1.0F
             chip.chipStrokeColor = ColorStateList.valueOf(Color.GRAY)
-            chip.setTextColor(
-                ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        this,
-                        R.color.design_default_color_primary
-                    )
-                )
-            )
+            chip.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.design_default_color_primary)))
             chipGroupColor.addView(chip)
         }
-
     }
 
     fun fillChipSize() {
 
         val sizes = productsVariants.sizes
+        chipGroupSize.removeAllViews()
 
-        for (size in sizes) {
-            val chip = Chip(
-                ContextThemeWrapper(
-                    chipGroupSize.context,
-                    R.style.Widget_MaterialComponents_Chip_Choice
-                )
-            )
+        for (size in sizes) { val chip = Chip(ContextThemeWrapper(chipGroupSize.context, R.style.Widget_MaterialComponents_Chip_Choice))
             chip.tag = sizes.indexOf(size)
             chip.text = size.size
             chip.isCheckable = true
             chip.chipBackgroundColor = ColorStateList.valueOf(Color.WHITE)
             chip.chipStrokeWidth = 1.0F
             chip.chipStrokeColor = ColorStateList.valueOf(Color.GRAY)
-            chip.setTextColor(
-                ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        this,
-                        R.color.design_default_color_primary
-                    )
-                )
-            )
+            chip.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.design_default_color_primary)))
             chipGroupSize.addView(chip)
         }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

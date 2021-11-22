@@ -14,4 +14,6 @@ data class ProductColor (
     var code: String,
     @Ignore var checked: Boolean = false) : Serializable{
     constructor(id:String , productId:String, name:String, code: String) : this(id, productId, name, code, false)
+
+    @Ignore  constructor() : this("","","", "", false)
     }

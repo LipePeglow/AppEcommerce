@@ -14,4 +14,6 @@ data class ProductSize (
     var size: String,
    @Ignore var checked : Boolean = false) : Serializable{
     constructor(id:String , productId:String, size:String) : this(id, productId, size, false)
+
+    @Ignore constructor() : this("id", "", "", false)
    }
