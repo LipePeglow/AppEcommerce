@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.mobilesales.ecommerce.database.AppDataBase
 import com.mobilesales.ecommerce.model.User
 import com.mobilesales.ecommerce.model.UserAddress
+import com.mobilesales.ecommerce.model.UserWithAddress
 import com.mobilesales.ecommerce.viewModel.UserViewModel
 import org.json.JSONObject
 
@@ -82,6 +83,30 @@ class UsersRepository (application: Application) {
         )
 
         queue.add(request)
+    }
+
+    fun load (userId : String): LiveData<UserWithAddress>{
+        val userWithAddress = UserWithAddress()
+        val liveDta = MutableLiveData<UserWithAddress>(null)
+        val userRef = fireStore.collection(" users").document(userId)
+
+        userRef.get().addOnSuccessListener {
+            val user = it.toObject(User::class.java)
+            user?.id = it.id
+
+            userWithAddress.user = user!!
+
+            userRef.collection("addresses").get().addOnCompleteListener { snap ->
+
+                snap.result?.forEach { doc->
+                    val address = doc.toObject(UserAddress::class.java)
+                    address.id = doc.id
+                    userWithAddress.addresses.add(address)
+                }
+                liveDta.value = userWithAddress
+            }
+        }
+        return liveDta
     }
 
     fun loadWithAdresses(userId : String) = userDao.loadUserById(userId)
