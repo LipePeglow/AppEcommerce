@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
+import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,13 +20,12 @@ import org.json.JSONObject
 class UsersRepository (application: Application) {
 
     private val preference = PreferenceManager.getDefaultSharedPreferences(application)
-    private val userDao = AppDataBase.getDataBase(application).userDao()
     private val fireStore = FirebaseFirestore.getInstance()
     private val queue = Volley.newRequestQueue(application)
 
     fun login(email : String, password : String) : LiveData<User>{
 
-        val liveData = MutableLiveData<User>()
+        val liveData = MutableLiveData<User>(null)
         val params = JSONObject().also {
             it.put("email", email)
             it.put("password", password)
@@ -85,39 +85,77 @@ class UsersRepository (application: Application) {
         queue.add(request)
     }
 
-    fun load (userId : String): LiveData<UserWithAddress>{
-        val userWithAddress = UserWithAddress()
-        val liveDta = MutableLiveData<UserWithAddress>(null)
-        val userRef = fireStore.collection(" users").document(userId)
+    fun load(userId: String) : LiveData<UserWithAddress> {
+        val userWithAddresses = UserWithAddress()
+        val liveData = MutableLiveData<UserWithAddress>()
+
+        val userRef = fireStore.collection("users").document(userId)
 
         userRef.get().addOnSuccessListener {
             val user = it.toObject(User::class.java)
             user?.id = it.id
 
-            userWithAddress.user = user!!
+            userWithAddresses.user = user!!
 
             userRef.collection("addresses").get().addOnCompleteListener { snap ->
-
-                snap.result?.forEach { doc->
+                snap.result?.forEach { doc ->
                     val address = doc.toObject(UserAddress::class.java)
                     address.id = doc.id
-                    userWithAddress.addresses.add(address)
+                    userWithAddresses.addresses.add(address)
                 }
-                liveDta.value = userWithAddress
+
+                liveData.value = userWithAddresses
             }
         }
-        return liveDta
+
+        return liveData
     }
 
-    fun loadWithAdresses(userId : String) = userDao.loadUserById(userId)
 
-    fun insert(user : User) = userDao.insert(user)
+    fun update(userWithAddresses: UserWithAddress) : Boolean {
 
-    fun insert(userAddress : UserAddress) = userDao.insert(userAddress)
+        var updated = false
 
-    fun updateUser(user : User) = userDao.update(user)
+        val userRef = fireStore.collection("users").document(userWithAddresses.user.id)
 
-    fun updateUser(userAddress : UserAddress) = userDao.update(userAddress)
+        userRef.set(userWithAddresses.user).addOnSuccessListener { updated = true }
+
+        val addressRef = userRef.collection("addresses")
+
+        val address = userWithAddresses.addresses.first()
+
+        if(address.id.isEmpty()) {
+            addressRef.add(address).addOnSuccessListener {
+                address.id = it.id
+                updated = true
+            }
+        } else {
+            addressRef.document(address.id).set(address).addOnSuccessListener { updated = true }
+        }
+
+        return updated
+    }
+
+    fun resetPassword(email: String) {
+
+        val params = JSONObject().also {
+            it.put("email", email)
+            it.put("requestType", "PASSWORD_RESET")
+        }
+        val request = JsonObjectRequest(Request.Method.POST
+            , BASE_URL + PASSWORD_RESET + KEY
+            , params
+            , { response ->
+                Log.d(this.toString(), response.keys().toString())
+            }
+            , { error ->
+                Log.e(this.toString(), error.message ?: "Error")
+            }
+        )
+
+        queue.add(request)
+
+    }
 
     companion object{
         const val BASE_URL =  "https://identitytoolkit.googleapis.com/v1/"

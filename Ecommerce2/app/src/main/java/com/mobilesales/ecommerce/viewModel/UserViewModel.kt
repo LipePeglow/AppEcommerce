@@ -17,11 +17,7 @@ class UserViewModel (application: Application) : AndroidViewModel(application) {
 
     fun createUser (user: User) = userRepository.createUser(user)
 
-    fun createAdress (userAdress: UserAddress) = userRepository.insert(userAdress)
-
-    fun updateUser (user: User) = userRepository.updateUser(user)
-
-    fun updateAdress (userAddress : UserAddress) = userRepository.updateUser(userAddress)
+    fun update (userWithAddress: UserWithAddress) = userRepository.update(userWithAddress)
 
     fun login (email : String, password : String) : LiveData<User> = userRepository.login(email, password)
 
@@ -38,6 +34,8 @@ class UserViewModel (application: Application) : AndroidViewModel(application) {
 
         return userRepository.load(id)
     }
+
+    fun resetPassword(email : String) = userRepository.resetPassword(email)
 
     companion object{
 

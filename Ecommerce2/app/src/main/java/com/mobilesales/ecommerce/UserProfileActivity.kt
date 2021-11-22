@@ -130,7 +130,7 @@ class UserProfileActivity : AppCompatActivity() {
             user.surname = userProfileSurname.text.toString()
             user.email = userProfileEmail.text.toString()
             user.image = photoURI.toString()
-            userViewModel.updateUser(user)
+
 
             if (addresses.isEmpty()){
                 val userAddress = UserAddress(
@@ -141,7 +141,8 @@ class UserProfileActivity : AppCompatActivity() {
                     zipCode = userAddressCep.text.toString(),
                     state = resources.getStringArray(R.array.states)[userAddressState.selectedItemPosition],
                     userId = user.id)
-                userViewModel.createAdress(userAddress)
+                userWithAddress.addresses.add(userAddress)
+
             }else{
                 addresses.first().apply {
                     addressLine1 = userAddress1.text.toString()
@@ -151,8 +152,8 @@ class UserProfileActivity : AppCompatActivity() {
                     zipCode = userAddressCep.text.toString()
                     state = resources.getStringArray(R.array.states)[userAddressState.selectedItemPosition]
                 }
-                userViewModel.updateAdress(addresses.first())
             }
+                 userViewModel.update(userWithAddress)
         }
         Toast.makeText(this, "Dados atualizados com sucesso", Toast.LENGTH_SHORT).show()
     }
