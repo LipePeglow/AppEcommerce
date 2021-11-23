@@ -1,15 +1,24 @@
 package com.mobilesales.ecommerce.repository
 
 import android.app.Application
+import android.net.Uri
 import android.preference.PreferenceManager
+import android.provider.MediaStore
 import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
+import com.google.firebase.storage.ktx.storage
+import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.database.AppDataBase
 import com.mobilesales.ecommerce.model.User
 import com.mobilesales.ecommerce.model.UserAddress
@@ -22,6 +31,8 @@ class UsersRepository (application: Application) {
     private val preference = PreferenceManager.getDefaultSharedPreferences(application)
     private val fireStore = FirebaseFirestore.getInstance()
     private val queue = Volley.newRequestQueue(application)
+    private val glide = Glide.with(application)
+    private val storage = Firebase.storage(Firebase.app)
 
     fun login(email : String, password : String) : LiveData<User>{
 
@@ -156,6 +167,25 @@ class UsersRepository (application: Application) {
         queue.add(request)
 
     }
+
+    fun upLoadProfileImage(userId : String, photoUri : Uri) : LiveData<String>{
+
+        val liveData = MutableLiveData<String>()
+
+        storage.reference.child("users/$userId/profile.jpg").putFile(photoUri).addOnSuccessListener{
+            preference.edit().putString(MediaStore.EXTRA_OUTPUT, it.metadata?.path).apply()
+            liveData.value = it.metadata?.path
+        }
+        return  liveData
+    }
+
+    fun loadProfile(userId : String, imageView: ImageView) = storage.reference.child("users/$userId/profile.jpg")
+        .downloadUrl.addOnSuccessListener {
+            glide.load(it).diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.profile_image)
+                .placeholder(R.drawable.profile_image)
+                .into(imageView)
+        }
 
     companion object{
         const val BASE_URL =  "https://identitytoolkit.googleapis.com/v1/"

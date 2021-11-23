@@ -1,6 +1,8 @@
 package com.mobilesales.ecommerce.viewModel
 
 import android.app.Application
+import android.net.Uri
+import android.widget.ImageView
 import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -35,7 +37,11 @@ class UserViewModel (application: Application) : AndroidViewModel(application) {
         return userRepository.load(id)
     }
 
-    fun resetPassword(email : String) = userRepository.resetPassword(email)
+    fun resetPassword(email: String) = userRepository.resetPassword(email)
+
+    fun upLoadProfileImage(userId: String, photoUri: Uri) = userRepository.upLoadProfileImage(userId, photoUri)
+
+    fun loadProfile(userId: String, imageView: ImageView) = userRepository.loadProfile(userId, imageView)
 
     companion object{
 
