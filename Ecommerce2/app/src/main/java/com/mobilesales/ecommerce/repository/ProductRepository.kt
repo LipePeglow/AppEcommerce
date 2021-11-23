@@ -1,24 +1,24 @@
 package com.mobilesales.ecommerce.repository
 
 import android.app.Application
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.mobilesales.ecommerce.database.AppDataBase
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
+import com.google.firebase.storage.ktx.storage
 import com.mobilesales.ecommerce.model.*
-import io.grpc.InternalChannelz.id
-import okio.Source
-import org.w3c.dom.Document
 
 class ProductsRepository (application: Application) {
 
-    private val productDao = AppDataBase.getDataBase(application).productDao()
 
-    private val productCategoryDao = AppDataBase.getDataBase(application).productCategoryDao()
-
-    val firestore = FirebaseFirestore.getInstance()
-
+    private val firestore = FirebaseFirestore.getInstance()
+    private val storage  = Firebase.storage(Firebase.app)
+    private val glide = Glide.with(application)
 
     fun allCategories(): LiveData<List<ProductCategory>> {
 
@@ -136,6 +136,28 @@ class ProductsRepository (application: Application) {
 
         }
         return liveData
+    }
+
+    fun loadThumbnail(product : Product, imageView: ImageView){
+        storage.reference.child("product/${product.id}/${product.thumbnail}")
+            .downloadUrl.addOnSuccessListener {
+            glide.load(it)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(com.mobilesales.ecommerce.R.drawable.placeholder)
+                .placeholder(com.mobilesales.ecommerce.R.drawable.placeholder)
+                .into(imageView)
+        }
+    }
+
+    fun loadImagesThumbnail(product: Product, path: String, imageView: ImageView){
+        storage.reference.child("product/${product.id}/$path")
+            .downloadUrl.addOnSuccessListener {
+                glide.load(it)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .error(com.mobilesales.ecommerce.R.drawable.placeholder)
+                    .placeholder(com.mobilesales.ecommerce.R.drawable.placeholder)
+                    .into(imageView)
+            }
     }
 
 }

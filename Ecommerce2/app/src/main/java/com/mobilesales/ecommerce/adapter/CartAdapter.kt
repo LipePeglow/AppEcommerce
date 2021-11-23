@@ -1,7 +1,7 @@
 package com.mobilesales.ecommerce.adapter
 
+import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.fragment.CartFragment
 import com.mobilesales.ecommerce.model.OrderedProduct
+import com.mobilesales.ecommerce.repository.ProductsRepository
 import com.mobilesales.ecommerce.viewModel.CartViewModel
 
 
 class CartAdapter (val context: Context) : RecyclerView.Adapter<CartAdapter.ViewHolder>(){
+
+    private val productsRepository = ProductsRepository(context.applicationContext as Application)
 
     var list: MutableList<OrderedProduct> = mutableListOf()
 
@@ -50,6 +53,9 @@ class CartAdapter (val context: Context) : RecyclerView.Adapter<CartAdapter.View
             (context as CartFragment.callBack).updateCart()
             notifyDataSetChanged()
         }
+
+        productsRepository.loadThumbnail(orderedProduct.product, holder.image)
+
         updatePriceHolder(holder, orderedProduct)
     }
 

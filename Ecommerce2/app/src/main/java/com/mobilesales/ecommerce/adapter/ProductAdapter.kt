@@ -1,5 +1,6 @@
 package com.mobilesales.ecommerce.adapter
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.icu.text.Transliterator
@@ -13,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobilesales.ecommerce.ProductDetailActivity
 import com.mobilesales.ecommerce.R
 import com.mobilesales.ecommerce.model.Product
+import com.mobilesales.ecommerce.repository.ProductsRepository
 
 class ProductAdapter ( val context: Context) : RecyclerView.Adapter<ProductAdapter.ViewHolder>(){
+
+    private val productsRepository = ProductsRepository(context.applicationContext as Application)
     var list: List<Product> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,6 +38,7 @@ class ProductAdapter ( val context: Context) : RecyclerView.Adapter<ProductAdapt
 
             context.startActivity(intent)
         }
+        productsRepository.loadThumbnail(product, holder.imageView)
     }
 
     override fun getItemCount(): Int = list.size
