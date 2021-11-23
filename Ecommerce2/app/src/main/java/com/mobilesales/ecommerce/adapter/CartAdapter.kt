@@ -1,5 +1,6 @@
 package com.mobilesales.ecommerce.adapter
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ class CartAdapter (val context: Context) : RecyclerView.Adapter<CartAdapter.View
         return ViewHolder(view)
     }
     override fun getItemCount(): Int = list.size
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val orderedProduct = list[position]
@@ -60,6 +62,7 @@ class CartAdapter (val context: Context) : RecyclerView.Adapter<CartAdapter.View
     }
 
 
+@SuppressLint("SetTextI18n")
 private fun updatePriceHolder (holder: ViewHolder, orderProduct: OrderedProduct) {
 
 holder.price.text = "R$ ${orderProduct.product.price * orderProduct.quantity}"
