@@ -3,10 +3,8 @@ package com.mobilesales.ecommerce.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.mobilesales.ecommerce.model.Order
-import com.mobilesales.ecommerce.model.OrderedProduct
-import com.mobilesales.ecommerce.model.Product
-import com.mobilesales.ecommerce.model.ProductVariants
+import com.google.type.Date
+import com.mobilesales.ecommerce.model.*
 import java.util.*
 
 class CartViewModel(application: Application) : AndroidViewModel(application) {
@@ -17,14 +15,19 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         MutableLiveData<MutableList<OrderedProduct>>(CartViewModel.orderedProducts)
 
     companion object {
-        val order = Order(
-            time = Date().time,
-            status = Order.Status.CART,
-            method = Order.Method.NOME,
-            userId = "0"
-        )
+    private var order = Order()
 
         private val orderedProducts = mutableListOf<OrderedProduct>()
+
+        fun clear(){
+            orderedProducts.clear()
+            order = Order()
+        }
+
+        fun getFullOrder() : OrderWithOrderedProducts{
+            order.time = Date().time
+            return OrderWithOrderedProducts(order , orderedProducts)
+        }
 
         fun addProduct(product: ProductVariants, quantity: Int) {
             if (compare(product)) {

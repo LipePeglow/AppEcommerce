@@ -21,8 +21,17 @@ import java.util.*
 class OrderFragment : Fragment() {
 
     lateinit var recyclerOrder: RecyclerView
+    lateinit var user : User
+
     private val orderViewModel by viewModels<OrderViewModel>()
-    private val userViewModel by viewModels <UserViewModel>()
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if (arguments != null)
+            user = arguments?.getSerializable("USER") as User
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,23 +45,18 @@ class OrderFragment : Fragment() {
 
         val adapterOrder = OrderAdapter( requireContext())
 
-        userViewModel.isLogged().observe(viewLifecycleOwner, Observer{
 
-            if(it != null)
-            orderViewModel.getOrdersByUser(it.user.id).observe(viewLifecycleOwner, Observer{ orders ->
+            orderViewModel.getOrdersByUser(user.id).observe(viewLifecycleOwner, Observer { orders ->
                 adapterOrder.list = orders
                 adapterOrder.notifyDataSetChanged()
             })
-            else
-                activity?.finish()
-                startActivity(Intent(activity, UserLoginActivity::class.java))
-        })
 
+            recyclerOrder.adapter = adapterOrder
+            recyclerOrder.layoutManager =
+                LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
-        recyclerOrder.adapter = adapterOrder
-        recyclerOrder.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-
-        return view
+            return view
+        }
     }
-}
+
+
