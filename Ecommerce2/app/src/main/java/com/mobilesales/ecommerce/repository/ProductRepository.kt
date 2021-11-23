@@ -139,7 +139,7 @@ class ProductsRepository (application: Application) {
     }
 
     fun loadThumbnail(product : Product, imageView: ImageView){
-        storage.reference.child("product/${product.id}/${product.thumbnail}")
+        storage.reference.child("products/${product.id}/${product.thumbnail}")
             .downloadUrl.addOnSuccessListener {
             glide.load(it)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -150,7 +150,7 @@ class ProductsRepository (application: Application) {
     }
 
     fun loadImagesThumbnail(product: Product, path: String, imageView: ImageView){
-        storage.reference.child("product/${product.id}/$path")
+        storage.reference.child("products/${product.id}/$path")
             .downloadUrl.addOnSuccessListener {
                 glide.load(it)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
